@@ -1,0 +1,23 @@
+<div class='panel panel-primary'>
+  <div class='panel-heading'>
+    Bitcoins rulez
+  </div>            
+  <div class='panel-body'>
+    <div class='table-responsive'>
+      <table class='table'>        
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let value of bitcoinValueList'>
+            <td>{{value.time.updated}}</td>
+            <td>{{value.bpi.USD.rate}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
