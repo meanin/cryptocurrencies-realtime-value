@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Subscription } from 'rxjs/Rx';
 import { BitcoinService } from './bitcoin.service';
 import { Bitcoin } from './coindesk';
 
@@ -7,20 +7,20 @@ import { Bitcoin } from './coindesk';
   templateUrl: './bitcoin.component.html'
 })
 export class BitcoinComponent implements OnInit, OnDestroy {
-  private _callBitcoinService: any;
+  private _callSubscription: Subscription;
+  private _bitcoinServiceSubscription: Subscription;
   bitcoinValueList: Array<Bitcoin>;
 
   constructor(private _bitcoinService: BitcoinService) { }
 
   ngOnInit(): void {
     this.bitcoinValueList = new Array<Bitcoin>(10);
-    this._bitcoinService.getBitcoinValue().subscribe(
-      this.appendNewBitcoinValue());
-    this._callBitcoinService = Observable.interval(60 * 1000);
-    this._callBitcoinService.subscribe(_ => 
-      this._bitcoinService.getBitcoinValue().subscribe(
-        this.appendNewBitcoinValue()
-      ));
+    this._callSubscription = Observable.interval(60 * 1000)
+      .subscribe(_ => 
+        this._bitcoinServiceSubscription = this._bitcoinService.getBitcoinValue()
+          .subscribe(
+            this.appendNewBitcoinValue()
+          ));
   }
 
   private appendNewBitcoinValue(): (value: Bitcoin) => void {
@@ -33,6 +33,7 @@ export class BitcoinComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._callBitcoinService.unsubscribe();
+    this._callSubscription.unsubscribe();
+    this._bitcoinServiceSubscription.unsubscribe();
   }
 }
