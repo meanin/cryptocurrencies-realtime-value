@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-chart',
@@ -6,8 +6,9 @@ import { Component } from '@angular/core';
 })
 export class ChartComponent {
   // lineChart
-  public lineChartData:Array<any> = [0, 0, 0, 81, 56, 55, 40];
-  public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  @Input() lineChartData:Array<any>;
+  @Input() lineChartLabels:Array<any>;
+
   public lineChartOptions:any = {
     responsive: true
   };

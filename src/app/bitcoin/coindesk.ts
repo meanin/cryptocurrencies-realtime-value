@@ -1,26 +1,26 @@
-export interface Bitcoin {
-    time: TimeStamp;
-    disclaimer: string;
-    chartName: string;
-    bpi: Bpi;
+export class Bitcoin {
+    time: TimeStamp = new TimeStamp();
+    disclaimer: string = "";
+    chartName: string = "";
+    bpi: Bpi = new Bpi();
 }
 
-export interface TimeStamp {
-    updated: Date;
-    updatedISO: Date;
-    updateduk: Date;
+export class TimeStamp {
+    updated: string = "";
+    updatedISO: Date = new Date();
+    updateduk: Date = new Date();
 }
 
-export interface BitcoinValue {
-    code: string;
-    symbol: string;
-    rate: string;
-    description: string;
-    rate_float: DoubleRange;
+export class BitcoinValue {
+    code: string = "";
+    symbol: string = "";
+    rate: string = "";
+    description: string = "";
+    rate_float: number = 0;
 }  
 
-export interface Bpi {
-    USD: BitcoinValue;
-    EUR: BitcoinValue;
-    GBP: BitcoinValue;
+export class Bpi {
+    USD: BitcoinValue = new BitcoinValue();
+    EUR: BitcoinValue = new BitcoinValue();
+    GBP: BitcoinValue = new BitcoinValue();
 }

@@ -1,4 +1,10 @@
-<!-- <div class='panel panel-primary'>
+<div>
+  <app-chart 
+  [lineChartData]='getValues()'
+  [lineChartLabels]='getLabel()'></app-chart>
+</div>
+<div>Data in a table below:</div>
+<div class='panel panel-primary'>
   <div class='panel-heading'>
     Bitcoins
   </div>            
@@ -12,16 +18,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor='let value of bitcoinValueList'>
-            <td>{{value.time.updated}}</td>
-            <td>{{value.bpi.USD.rate}}</td>
+          <tr *ngFor='let cryptocurrency of bitcoinValueList'>
+            <td>{{cryptocurrency.timestamp}}</td>
+            <td>{{cryptocurrency.value}}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-</div> -->
-Ponizej
-<div>
-  <app-chart></app-chart>
 </div>
