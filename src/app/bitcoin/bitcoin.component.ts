@@ -3,7 +3,7 @@ import { Observable, Subscription } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject';
 
 import { BitcoinService } from './bitcoin.service';
-import { Bitcoin } from './coindesk';
+import { Bitcoin, HistoricalBpi } from './coindesk';
 import { CurrencyTimestamp } from '../shared/currency-timestamp'
 
 
@@ -18,7 +18,7 @@ export class BitcoinComponent implements OnInit, OnDestroy {
     this.bitcoinValueList = new Array<CurrencyTimestamp>();  
     for(let i = 0; i < 10; i++)
     {
-      this.bitcoinValueList[i] = new CurrencyTimestamp(`${i} wiersz`, i);
+      this.bitcoinValueList[i] = new CurrencyTimestamp("", 0);
     }
   }
 
@@ -31,14 +31,22 @@ export class BitcoinComponent implements OnInit, OnDestroy {
   }
 
     ngOnInit(): void {  
+    this.InitializeSubscribingRealtimeValue();
+    this._bitcoinService.getHistoricalBitcoinValue()
+      .take(1)
+      .subscribe(hBpi => {
+        let array: Array<CurrencyTimestamp> = new Array<CurrencyTimestamp>();
+        Object.keys(hBpi.bpi).forEach(key => array.push(new CurrencyTimestamp(key, hBpi.bpi[key])));
+        this.bitcoinValueList = array;
+      });
+  }
+
+  private InitializeSubscribingRealtimeValue() {
     Observable.interval(60 * 1000)
-    .takeUntil(this._componentDestroy)
-    .subscribe(_ => 
-      this._bitcoinService.getBitcoinValue()
+      .takeUntil(this._componentDestroy)
+      .subscribe(_ => this._bitcoinService.getBitcoinValue()
         .takeUntil(this._componentDestroy)
-        .subscribe(
-          this.appendNewBitcoinValue()
-        ));
+        .subscribe(this.appendNewBitcoinValue()));
   }
 
   private appendNewBitcoinValue(): (value: Bitcoin) => void {

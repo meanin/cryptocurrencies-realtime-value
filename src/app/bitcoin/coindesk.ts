@@ -5,6 +5,12 @@ export class Bitcoin {
     bpi: Bpi = new Bpi();
 }
 
+export class HistoricalBpi {
+    bpi: { [key: string]: number };
+    disclaimer: string = "";
+    time: TimeStamp = new TimeStamp();
+}
+
 export class TimeStamp {
     updated: string = "";
     updatedISO: Date = new Date();
