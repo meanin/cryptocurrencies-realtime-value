@@ -1,29 +1,32 @@
-<div>
-  <app-chart 
-  [lineChartData]='getValues()'
-  [lineChartLabels]='getLabel()'></app-chart>
-</div>
-<div>Data in a table below:</div>
-<div class='panel panel-primary'>
-  <div class='panel-heading'>
-    Bitcoins
-  </div>            
-  <div class='panel-body'>
-    <div class='table-responsive'>
-      <table class='table'>        
-        <thead>
-          <tr>
-            <th>Time</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor='let cryptocurrency of bitcoinValueList'>
-            <td>{{cryptocurrency.timestamp}}</td>
-            <td>{{cryptocurrency.value}}</td>
-          </tr>
-        </tbody>
-      </table>
+<div class='row'>
+  <div class='col-md-6'>
+    <app-chart 
+      [lineChartData]='getValues()'
+      [lineChartLabels]='getLabel()'></app-chart>
+  </div>
+  <div class='col-md-6'>
+    <div class='panel panel-primary'>
+      <div class='panel-heading'>
+        Bitcoins
+      </div>            
+      <div class='panel-body'>
+        <div class='table-responsive'>
+          <table class='table'>        
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor='let cryptocurrency of bitcoinValueList'>
+                <td>{{cryptocurrency.timestamp}}</td>
+                <td>{{cryptocurrency.value}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>
